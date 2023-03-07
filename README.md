@@ -1,2 +1,2 @@
-# facial-emotion-detection
+# facial-emotion-recognition
  

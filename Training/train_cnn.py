@@ -41,6 +41,9 @@ def build_cnn():
 
 
 def compile_and_train(model, train_set, validation_set):
+    step_size_train = train_set.n // train_set.batch_size
+    step_size_validation = validation_set.n // validation_set.batch_size
+
     checkpoint = ModelCheckpoint("../Models/CNN_model.h5", monitor='val_accuracy', verbose=1, save_best_only=True,
                                  mode='max')
 
@@ -58,10 +61,18 @@ def compile_and_train(model, train_set, validation_set):
                                             min_delta=0.0001)
 
     callbacks_list = [early_stopping, checkpoint, reduce_learningrate]
-    epochs = 20
-    model.compile(loss='categorical_crossentropy', optimizer=Adam(learning_rate=0.001), metrics=['accuracy'])
-    history = model.fit(train_set, validation_data=validation_set, epochs=epochs, callbacks=callbacks_list, verbose=1)
-    return history
+    num_epochs = 20
+
+    model.compile(loss='categorical_crossentropy',
+                  optimizer=Adam(learning_rate=0.001),
+                  metrics=['accuracy'])
+    model.fit(train_set,
+              steps_per_epoch=step_size_train,
+              validation_data=validation_set,
+              validation_steps=step_size_validation,
+              epochs=num_epochs,
+              callbacks=callbacks_list,
+              verbose=1)
 
 
 def evaluate_model(model, test_set):

@@ -15,7 +15,7 @@ def load_dataset():
 def demo_images():
     folder_path = '../Data/Facial_emotion_images/'
     image_size = 48
-    expressions = ['happy', 'sad', 'neutral', 'surprise']
+    expressions = ['happy', 'neutral', 'sad', 'surprise']
     plt.figure(figsize=(8, 8))
     for expression in expressions:
         for i in range(1, 10, 1):

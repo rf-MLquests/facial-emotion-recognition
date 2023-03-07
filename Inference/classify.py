@@ -29,8 +29,3 @@ def predict_test_images(images, model_path):
     output = model.predict(input_batch)
     predictions = np.argmax(output, axis=1)
     return predictions
-
-# image = tf.keras.utils.load_img(image_path)
-# input_arr = tf.keras.utils.img_to_array(image)
-# input_arr = np.array([input_arr])  # Convert single image to a batch.
-# predictions = model.predict(input_arr)
