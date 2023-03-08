@@ -44,7 +44,7 @@ def compile_and_train(model, train_set, validation_set):
     step_size_train = train_set.n // train_set.batch_size
     step_size_validation = validation_set.n // validation_set.batch_size
 
-    checkpoint = ModelCheckpoint("../Models/CNN_model.h5", monitor='val_accuracy', verbose=1, save_best_only=True,
+    checkpoint = ModelCheckpoint("../Models/CNN_model_archived.h5", monitor='val_accuracy', verbose=1, save_best_only=True,
                                  mode='max')
 
     early_stopping = EarlyStopping(monitor='val_accuracy',

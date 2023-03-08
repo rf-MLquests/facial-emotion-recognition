@@ -4,7 +4,7 @@ import numpy as np
 
 def main():
     test_images, labels = select_test_images(5, "Data/Facial_emotion_images/")
-    predictions = predict_test_images(test_images, "Models/CNN_model_v2.h5")
+    predictions = predict_test_images(test_images, "Models/CNN_model.h5")
     print(labels)
     print(predictions)
     print("overall accuracy: ")
