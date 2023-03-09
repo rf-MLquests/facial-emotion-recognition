@@ -1,5 +1,6 @@
 from Inference.classify import select_test_images, predict_test_images
 from Training.train_cnn import build_cnn
+from Training.train_vit import build_vit
 import numpy as np
 import tensorflow as tf
 
