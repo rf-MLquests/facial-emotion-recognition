@@ -1,5 +1,4 @@
 import os
-from keras.models import load_model
 from keras.utils import load_img, img_to_array
 import numpy as np
 
@@ -19,8 +18,7 @@ def select_test_images(num_per_class, folder_path):
     return images, np.array(labels)
 
 
-def predict_test_images(images, model_path):
-    model = load_model(model_path)
+def predict_test_images(images, model):
     input_batch = []
     for img in images:
         img_array = img_to_array(img)

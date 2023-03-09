@@ -29,42 +29,40 @@ def demo_images():
 
 def prepare_dataset():
     folder_path = '../Data/Facial_emotion_images/'
-    batch_size = 32
+    batch_size = 64
     img_size = 48
 
     datagen_train = ImageDataGenerator(horizontal_flip=True,
-                                       brightness_range=(0., 2.),
+                                       brightness_range=(0.7, 1.3),
                                        rescale=1. / 255,
-                                       shear_range=0.3)
+                                       shear_range=0.2,
+                                       zoom_range=0.1)
 
     train_set = datagen_train.flow_from_directory(folder_path + "train",
                                                   target_size=(img_size, img_size),
                                                   color_mode='rgb',
                                                   batch_size=batch_size,
                                                   class_mode='categorical',
+                                                  classes=['happy', 'neutral', 'sad', 'surprise'],
                                                   shuffle=True)
 
-    datagen_validation = ImageDataGenerator(horizontal_flip=True,
-                                            brightness_range=(0., 2.),
-                                            rescale=1. / 255,
-                                            shear_range=0.3)
+    datagen_validation = ImageDataGenerator(rescale=1. / 255)
 
     validation_set = datagen_validation.flow_from_directory(folder_path + "validation",
                                                             target_size=(img_size, img_size),
                                                             color_mode='rgb',
                                                             batch_size=batch_size,
                                                             class_mode='categorical',
+                                                            classes=['happy', 'neutral', 'sad', 'surprise'],
                                                             shuffle=True)
 
-    datagen_test = ImageDataGenerator(horizontal_flip=True,
-                                      brightness_range=(0., 2.),
-                                      rescale=1. / 255,
-                                      shear_range=0.3)
+    datagen_test = ImageDataGenerator(rescale=1. / 255)
 
     test_set = datagen_test.flow_from_directory(folder_path + "test",
                                                 target_size=(img_size, img_size),
                                                 color_mode='rgb',
                                                 batch_size=batch_size,
                                                 class_mode='categorical',
+                                                classes=['happy', 'neutral', 'sad', 'surprise'],
                                                 shuffle=True)
     return train_set, validation_set, test_set
