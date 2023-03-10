@@ -4,11 +4,23 @@ import numpy as np
 
 
 def select_test_images(num_per_class, folder_path):
-    label_map = {'happy': 0, 'neutral': 1, 'sad': 2, 'surprise': 3}
+    label_map = {'angry': 0,
+                 'disgust': 1,
+                 'fear': 2,
+                 'happy': 3,
+                 'neutral': 4,
+                 'sad': 5,
+                 'surprise': 6}
     img_size = 48
     images = []
     labels = []
-    expressions = ['happy', 'neutral', 'sad', 'surprise']
+    expressions = ['angry',
+                   'disgust',
+                   'fear',
+                   'happy',
+                   'neutral',
+                   'sad',
+                   'surprise']
     for expression in expressions:
         for i in range(1, num_per_class + 1, 1):
             img = load_img(folder_path + "test/" + expression + "/" + os.listdir(folder_path + "test/" + expression)[i],

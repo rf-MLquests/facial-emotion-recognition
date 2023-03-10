@@ -1,60 +1,45 @@
 import zipfile
-import matplotlib.pyplot as plt
-import os
-
-from keras.utils import load_img
 from keras.preprocessing.image import ImageDataGenerator
 
 
 def load_dataset():
-    path = '../Data/Facial_emotion_images.zip'
+    path = '../Data/fer2013.zip'
     with zipfile.ZipFile(path, 'r') as zip_ref:
         zip_ref.extractall('../Data/')
 
 
-def demo_images():
-    folder_path = '../Data/Facial_emotion_images/'
-    image_size = 48
-    expressions = ['happy', 'neutral', 'sad', 'surprise']
-    plt.figure(figsize=(8, 8))
-    for expression in expressions:
-        for i in range(1, 10, 1):
-            plt.subplot(3, 3, i)
-
-            img = load_img(folder_path + "train/" + expression + "/" +
-                           os.listdir(folder_path + "train/" + expression)[i], target_size=(image_size, image_size))
-            plt.imshow(img)
-        plt.show()
-
-
 def prepare_dataset():
-    folder_path = '../Data/Facial_emotion_images/'
-    batch_size = 64
+    folder_path = '../Data/fer2013/'
+    batch_size = 256
     img_size = 48
 
     datagen_train = ImageDataGenerator(horizontal_flip=True,
                                        brightness_range=(0.7, 1.3),
                                        rescale=1. / 255,
                                        shear_range=0.2,
-                                       zoom_range=0.1)
+                                       zoom_range=0.1,
+                                       validation_split=0.2)
+
+    datagen_validation = ImageDataGenerator(rescale=1. / 255,
+                                            validation_split=0.2)
 
     train_set = datagen_train.flow_from_directory(folder_path + "train",
+                                                  seed=42,
                                                   target_size=(img_size, img_size),
                                                   color_mode='rgb',
                                                   batch_size=batch_size,
-                                                  class_mode='categorical',
-                                                  classes=['happy', 'neutral', 'sad', 'surprise'],
-                                                  shuffle=True)
+                                                  class_mode='sparse',
+                                                  shuffle=True,
+                                                  subset='training')
 
-    datagen_validation = ImageDataGenerator(rescale=1. / 255)
-
-    validation_set = datagen_validation.flow_from_directory(folder_path + "validation",
+    validation_set = datagen_validation.flow_from_directory(folder_path + "train",
+                                                            seed=42,
                                                             target_size=(img_size, img_size),
                                                             color_mode='rgb',
                                                             batch_size=batch_size,
-                                                            class_mode='categorical',
-                                                            classes=['happy', 'neutral', 'sad', 'surprise'],
-                                                            shuffle=True)
+                                                            class_mode='sparse',
+                                                            shuffle=True,
+                                                            subset='validation')
 
     datagen_test = ImageDataGenerator(rescale=1. / 255)
 
@@ -62,7 +47,6 @@ def prepare_dataset():
                                                 target_size=(img_size, img_size),
                                                 color_mode='rgb',
                                                 batch_size=batch_size,
-                                                class_mode='categorical',
-                                                classes=['happy', 'neutral', 'sad', 'surprise'],
+                                                class_mode='sparse',
                                                 shuffle=True)
     return train_set, validation_set, test_set
