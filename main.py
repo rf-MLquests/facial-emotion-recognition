@@ -1,21 +1,30 @@
-from Inference.classify import select_test_images, predict_test_images
+from Preprocess.data_preparation import load_dataset, prepare_dataset
+from Inference.classify import predict_test_images
 from Training.train_cnn import build_cnn
 from Training.train_vit import build_vit
 import numpy as np
 import tensorflow as tf
 
 
-def main():
-    test_images, labels = select_test_images(5, "Data/Facial_emotion_images/")
-    model = build_cnn()
-    model.load_weights("Models/cnn/cnn.ckpt")
-    predictions = predict_test_images(test_images, model)
-    print(labels)
-    print(predictions)
+def evaluate_cnn(test_set, num):
+    cnn = build_cnn((48, 48, 3), 7, 0.001, 0.0001)
+    cnn.load_weights("Models/cnn/cnn.ckpt")
+    labels, predictions = predict_test_images(test_set, num, cnn)
+    print("overall accuracy: ")
+    print(np.where(labels == predictions)[0].shape[0] / labels.shape[0])
+
+
+def evaluate_vit(test_set, num):
+    vit = build_vit((48, 48, 3), 7, 6, 4, 8, 0.001, 0.0001)
+    vit.load_weights("Models/cnn/cnn.ckpt")
+    labels, predictions = predict_test_images(test_set, num, vit)
     print("overall accuracy: ")
     print(np.where(labels == predictions)[0].shape[0] / labels.shape[0])
 
 
 if __name__ == "__main__":
     tf.get_logger().setLevel('ERROR')
-    main()
+    load_dataset()
+    train, val, test = prepare_dataset(256, 48)
+    evaluate_cnn(test, 8)
+    evaluate_vit(test, 8)

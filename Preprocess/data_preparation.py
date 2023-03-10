@@ -8,10 +8,8 @@ def load_dataset():
         zip_ref.extractall('../Data/')
 
 
-def prepare_dataset():
+def prepare_dataset(batch_size, img_size):
     folder_path = '../Data/fer2013/'
-    batch_size = 256
-    img_size = 48
 
     datagen_train = ImageDataGenerator(horizontal_flip=True,
                                        brightness_range=(0.7, 1.3),
