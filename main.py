@@ -24,7 +24,7 @@ def evaluate_vit(test_set, num):
 
 if __name__ == "__main__":
     tf.get_logger().setLevel('ERROR')
-    load_dataset()
-    train, val, test = prepare_dataset(256, 48)
-    evaluate_cnn(test, 8)
-    evaluate_vit(test, 8)
+    # load_dataset('Data/', 'fer2013.zip')
+    train, val, test = prepare_dataset('Data/', 128, 48)
+    evaluate_cnn(test, 10)
+    # evaluate_vit(test, 10)

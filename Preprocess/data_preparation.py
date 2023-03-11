@@ -2,15 +2,12 @@ import zipfile
 from keras.preprocessing.image import ImageDataGenerator
 
 
-def load_dataset():
-    path = '../Data/fer2013.zip'
-    with zipfile.ZipFile(path, 'r') as zip_ref:
-        zip_ref.extractall('../Data/')
+def load_dataset(path, filename):
+    with zipfile.ZipFile(path + filename, 'r') as zip_ref:
+        zip_ref.extractall(path)
 
 
-def prepare_dataset(batch_size, img_size):
-    folder_path = '../Data/fer2013/'
-
+def prepare_dataset(folder_path, batch_size, img_size):
     datagen_train = ImageDataGenerator(horizontal_flip=True,
                                        brightness_range=(0.7, 1.3),
                                        rescale=1. / 255,
