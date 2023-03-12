@@ -57,6 +57,9 @@ def build_vit(input_shape, num_classes, patch_size, num_heads, transformer_layer
         projection_dim,
     ]
     mlp_head_units = [2048, 1024]
+    print("-----DEBUG-----")
+    print("number of patches: " + num_patches)
+    print("projection dimension: " + projection_dim)
 
     inputs = Input(shape=input_shape)
     patches = Patches(patch_size)(inputs)

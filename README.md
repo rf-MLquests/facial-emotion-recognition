@@ -4,9 +4,10 @@ The core dataset is the Facial Expression Recognition Dataset (fer 2013).
 
 ## Kind of Models Included:
 
-- Convolutional Neural Network
-- Vision Transformer
+- Convolutional Neural Network trained from scratch
+- Vision Transformer trained from scratch
 
 ## TODOs:
 
-- Consider fine-tuning a larger, pre-trained model and see if we can get more performance gains
+- Fine tune a pre-trained EfficientNet model on the dataset
+- Fine tune a pre-trained Vision Transformer model on the dataset
