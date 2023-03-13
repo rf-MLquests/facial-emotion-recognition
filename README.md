@@ -1,7 +1,7 @@
 # facial-emotion-recognition
 
-We use a subset of the Facial Expression Recognition Dataset (fer 2013). Specifically, 4 out of 7 classes are used, and
-the subset is put together to alleviate class imbalance.
+We use a subset of the Facial Expression Recognition Dataset (fer 2013). Specifically, 4 out of 7 classes are selected
+and 30% of the training images are split into a separate validation set.
 
 ## Kind of Models Included:
 
