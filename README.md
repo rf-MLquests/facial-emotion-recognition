@@ -1,13 +1,13 @@
 # facial-emotion-recognition
 
-The core dataset is the Facial Expression Recognition Dataset (fer 2013).
+We use a subset of the Facial Expression Recognition Dataset (fer 2013). Specifically, 4 out of 7 classes are used, and
+the subset is put together to alleviate class imbalance.
 
 ## Kind of Models Included:
 
 - Convolutional Neural Network trained from scratch
-- Vision Transformer trained from scratch
+- Pre-trained EfficientNet model fine-tuned on the dataset
 
 ## TODOs:
 
-- Fine tune a pre-trained EfficientNet model on the dataset
-- Fine tune a pre-trained Vision Transformer model on the dataset
+- Fine-tune a pre-trained Vision Transformer model on the dataset

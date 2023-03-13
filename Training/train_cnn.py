@@ -2,7 +2,7 @@ from keras.layers import Dense, Dropout, Flatten, Conv2D, BatchNormalization, Ma
 from keras.models import Sequential
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 from keras.losses import SparseCategoricalCrossentropy
-from keras.metrics import SparseCategoricalAccuracy, SparseTopKCategoricalAccuracy
+from keras.metrics import SparseCategoricalAccuracy
 import tensorflow_addons as tfa
 
 
@@ -41,8 +41,7 @@ def build_cnn(input_shape, num_classes, learning_rate, weight_decay):
     cnn.compile(loss=SparseCategoricalCrossentropy(),
                 optimizer=tfa.optimizers.AdamW(learning_rate=learning_rate, weight_decay=weight_decay),
                 metrics=[
-                    SparseCategoricalAccuracy(name="accuracy"),
-                    SparseTopKCategoricalAccuracy(2, name="top-2-accuracy")]
+                    SparseCategoricalAccuracy(name="accuracy")]
                 )
     return cnn
 

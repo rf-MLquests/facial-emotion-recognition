@@ -24,6 +24,7 @@ def build_efficientnet(input_shape, num_classes, learning_rate):
     efficientnet.compile(
         optimizer=optimizer, loss="categorical_crossentropy", metrics=["accuracy"]
     )
+    # efficientnet.summary()
     return efficientnet
 
 
