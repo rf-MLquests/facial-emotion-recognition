@@ -6,7 +6,7 @@ the subset is put together to alleviate class imbalance.
 ## Kind of Models Included:
 
 - Convolutional Neural Network trained from scratch
-- Pre-trained EfficientNet model fine-tuned on the dataset
+- Pre-trained EfficientNet & EfficientNetV2 models fine-tuned on the dataset
 
 ## TODOs:
 

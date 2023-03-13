@@ -5,9 +5,13 @@ from keras.optimizers import Adam
 from keras.callbacks import ModelCheckpoint, EarlyStopping
 
 
-def build_efficientnet(input_shape, num_classes, learning_rate):
+def build_efficientnet(input_shape, num_classes, learning_rate, use_v2=True):
     inputs = Input(shape=input_shape)
-    efficientnet = EfficientNetB0(include_top=False, input_tensor=inputs, weights="imagenet")
+    efficientnet = None
+    if use_v2:
+        efficientnet = EfficientNetV2B0(include_top=False, input_tensor=inputs, weights="imagenet")
+    else:
+        efficientnet = EfficientNetB0(include_top=False, input_tensor=inputs, weights="imagenet")
 
     efficientnet.trainable = False
 
@@ -28,10 +32,14 @@ def build_efficientnet(input_shape, num_classes, learning_rate):
     return efficientnet
 
 
-def train_efficientnet(model, train_set, validation_set, class_weight, batch_size, num_epochs):
+def train_efficientnet(model, train_set, validation_set, class_weight, batch_size, num_epochs, use_v2=True):
     step_size_train = train_set.n // train_set.batch_size
     step_size_validation = validation_set.n // validation_set.batch_size
-    checkpoint_path = '../Models/efficientnet/efficientnet.ckpt'
+    checkpoint_path = None
+    if use_v2:
+        checkpoint_path = '../Models/efficientnetv2/efficientnet.ckpt'
+    else:
+        checkpoint_path = '../Models/efficientnet/efficientnet.ckpt'
 
     checkpoint = ModelCheckpoint(checkpoint_path,
                                  monitor='val_accuracy',
