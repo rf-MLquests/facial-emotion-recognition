@@ -16,27 +16,27 @@ def prepare_cnn_dataset(folder_path, batch_size, img_size):
 
     train_set = datagen_train.flow_from_directory(folder_path + "train",
                                                   target_size=(img_size, img_size),
-                                                  color_mode='grayscale',
+                                                  color_mode='rgb',
                                                   batch_size=batch_size,
-                                                  class_mode='sparse',
+                                                  class_mode='categorical',
                                                   shuffle=True)
 
     datagen_validation = ImageDataGenerator(rescale=1. / 255)
 
     validation_set = datagen_validation.flow_from_directory(folder_path + "validation",
                                                             target_size=(img_size, img_size),
-                                                            color_mode='grayscale',
+                                                            color_mode='rgb',
                                                             batch_size=batch_size,
-                                                            class_mode='sparse',
+                                                            class_mode='categorical',
                                                             shuffle=True)
 
     datagen_test = ImageDataGenerator(rescale=1. / 255)
 
     test_set = datagen_test.flow_from_directory(folder_path + "test",
                                                 target_size=(img_size, img_size),
-                                                color_mode='grayscale',
+                                                color_mode='rgb',
                                                 batch_size=batch_size,
-                                                class_mode='sparse',
+                                                class_mode='categorical',
                                                 shuffle=True)
     return train_set, validation_set, test_set
 

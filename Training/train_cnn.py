@@ -1,21 +1,13 @@
 from keras.layers import Dense, Dropout, Flatten, Conv2D, BatchNormalization, MaxPooling2D, LeakyReLU
 from keras.models import Sequential
 from keras.callbacks import ModelCheckpoint, EarlyStopping
-from keras.losses import SparseCategoricalCrossentropy
-from keras.metrics import SparseCategoricalAccuracy
-import tensorflow_addons as tfa
+from keras.optimizers import Adam
 
 
-def build_cnn(input_shape, num_classes, learning_rate, weight_decay):
+def build_cnn(input_shape, num_classes, learning_rate):
     cnn = Sequential()
 
-    cnn.add(Conv2D(filters=256, kernel_size=(2, 2), padding='same', input_shape=input_shape, activation='relu'))
-    cnn.add(BatchNormalization())
-    cnn.add(LeakyReLU(alpha=0.1))
-    cnn.add(MaxPooling2D(pool_size=(2, 2)))
-    cnn.add(Dropout(rate=0.3))
-
-    cnn.add(Conv2D(filters=128, kernel_size=(2, 2), padding='same', activation='relu'))
+    cnn.add(Conv2D(filters=128, kernel_size=(2, 2), padding='same', input_shape=input_shape, activation='relu'))
     cnn.add(BatchNormalization())
     cnn.add(LeakyReLU(alpha=0.1))
     cnn.add(MaxPooling2D(pool_size=(2, 2)))
@@ -38,11 +30,9 @@ def build_cnn(input_shape, num_classes, learning_rate, weight_decay):
     cnn.add(Dense(128, activation='relu'))
     cnn.add(Dense(num_classes, activation='softmax'))
     # cnn.summary()
-    cnn.compile(loss=SparseCategoricalCrossentropy(),
-                optimizer=tfa.optimizers.AdamW(learning_rate=learning_rate, weight_decay=weight_decay),
-                metrics=[
-                    SparseCategoricalAccuracy(name="accuracy")]
-                )
+    cnn.compile(optimizer=Adam(learning_rate=learning_rate),
+                loss="categorical_crossentropy",
+                metrics=["accuracy"])
     return cnn
 
 
