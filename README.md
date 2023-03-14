@@ -7,7 +7,4 @@ and 30% of the training images are split into a separate validation set.
 
 - Convolutional Neural Network trained from scratch
 - Pre-trained EfficientNet & EfficientNetV2 models fine-tuned on the dataset
-
-## TODOs:
-
-- Fine-tune a pre-trained Vision Transformer model on the dataset
+- Pre-trained Vision Transformer model fine-tuned on the dataset
