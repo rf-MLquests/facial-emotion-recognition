@@ -12,3 +12,9 @@ efficientnet:
   learning_rate: 0.001
   batch_size: 128
   num_epochs: 25
+vit:
+  image_size: 224
+  num_classes: 4
+  learning_rate: 0.001
+  batch_size: 128
+  num_epochs: 20

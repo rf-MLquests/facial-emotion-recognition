@@ -6,7 +6,6 @@ import torch.optim as optim
 import time
 import os
 import copy
-import numpy as np
 from torchvision import models
 
 
@@ -113,18 +112,4 @@ def train_vit(num_classes, train_loader, validation_loader, num_epochs):
     return model_ft, hist
 
 
-def evaluate_vit(test_loader, num_classes):
-    model = initialize_model(num_classes, True)
-    checkpoint_path = '../Models/vit/'
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    model.load_state_dict(torch.load(checkpoint_path + "epoch-16.pth", map_location=device))
-    model.eval()
-    for inputs, labels in test_loader:
-        inputs = inputs.to(device)
-        labels = labels.to(device)
-        outputs = model(inputs)
-        pred = outputs.cpu().detach().numpy()
-        y_true = labels.cpu().detach().numpy()
-    predictions = np.argmax(pred, axis=1)
-    correct_indices = np.where(y_true == predictions)[0]
-    return correct_indices.shape[0] / test_loader.batch_size
+
